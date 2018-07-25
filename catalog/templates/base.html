@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-  {% if title %}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> {% if title %}
   <title>Catalog - {{ title }}</title>
   {% else %}
   <title>Catalog</title>
@@ -16,12 +15,29 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Catalog</a>
-    <button type="button" class="btn btn-light">Login</button>
+  <nav class="navbar navbar-dark bg-dark navbar-expand-sm d-flex flex-row">
+    <a class="navbar-brand flex-grow-1" href="{{ url_for('url.index') }}">Catalog</a>
+    {% if current_user.is_authenticated %}
+    <span class="navbar-text user-email">{{ current_user.email }}</span>
+    <a class="" href="{{ url_for('url.logout') }}">
+      <button type="button" class="btn btn-danger">Logout</button>
+    </a>
+    {% else %}
+    <a href="{{ url_for('google.login') }}">
+      <button type="button" class="btn btn-success align-self-end">Login</button>
+    </a>
+    {% endif %}
   </nav>
   <div class="main-content">
-    {% block content %}{% endblock %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+    <div class="alert-area">
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %} {% block content %}{% endblock %}
   </div>
   <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>

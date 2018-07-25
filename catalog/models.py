@@ -1,13 +1,22 @@
+from flask_dance.consumer.backend.sqla import OAuthConsumerMixin
+from flask_login import UserMixin
+
 from catalog import db
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(256), unique=True, nullable=False)
+    name = db.Column(db.String(256))
 
     def __repr__(self):
-        return f"{self.username}"
+        return "{}:{}".format(self.id, self.name)
+
+
+class OAuth(OAuthConsumerMixin, db.Model):
+    provider_user_id = db.Column(db.String(256), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    user = db.relationship(User)
 
 
 class Category(db.Model):
@@ -15,7 +24,7 @@ class Category(db.Model):
     name = db.Column(db.String(20), unique=True, nullable=False)
 
     def __repr__(self):
-        return f"{self.id}:{self.name}"
+        return "{}:{}".format(self.id, self.name)
 
 
 class Item(db.Model):
@@ -30,4 +39,4 @@ class Item(db.Model):
         name='item_name_category_unique_constraint'))
 
     def __repr__(self):
-        return f"{self.id}:{self.category_id}:{self.name}"
+        return "{}:{}:{}".format(self.id, self.category_id, self.name)
