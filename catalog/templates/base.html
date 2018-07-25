@@ -30,15 +30,17 @@
     {% endif %}
   </nav>
   <div class="main-content">
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
-    <div class="alert-area">
-      {% for category, message in messages %}
-      <div class="alert alert-{{ category }}" role="alert">
-        {{ message }}
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+      <div class="alert-area">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
     </div>
-    {% endif %} {% endwith %} {% block content %}{% endblock %}
   </div>
   <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
