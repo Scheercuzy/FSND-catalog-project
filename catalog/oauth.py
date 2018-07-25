@@ -58,6 +58,7 @@ def google_logged_in(blueprint, token):
         user = User(
             email=google_info["email"],
             name=google_info["name"],
+            avatar=google_info["picture"]
         )
         oauth.user = user
         db.session.add_all([user, oauth])
