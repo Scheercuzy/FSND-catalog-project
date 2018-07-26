@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="card text-white bg-dark small-card-size">
+    <div class="card-header">
+      <strong>{{ item.name }}</strong>
+    </div>
+    <div class="card-body form-card">
+      {{ item.description }}
+    </div>
+  </div>
+
+{% endblock %}

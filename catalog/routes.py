@@ -13,7 +13,35 @@ def index():
     catergories = Category.query.all()
     items = Item.query.all()
     return render_template(
-        'index.html', title="index", categories=catergories, items=items)
+        'index.html',
+        title="index",
+        categories=catergories,
+        items=items,
+        category_id=None)
+
+
+@url.route('/item/<int:item_id>', methods=['GET'])
+def item_detail(item_id):
+    item = Item.query.filter(Item.id == item_id).first()
+    if not item:
+        flash("Couldn't find the item with the id of '{}'".format(
+            item_id), category='warning')
+        return redirect(url_for('url.index'))
+    return render_template('detail.html', item=item)
+
+
+@url.route('/category/<int:category_id>', methods=['GET'])
+def category_items(category_id):
+    items = Item.query.filter(Item.category_id == category_id).all()
+    catergories = Category.query.all()
+    if not items:
+        flash("Couldn't find any items with this category")
+        return redirect(url_for('url.index'))
+    return render_template(
+        'index.html',
+        categories=catergories,
+        items=items,
+        current_category_id=category_id)
 
 
 @url.route('/logout')

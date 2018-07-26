@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '6eL0O65HUS3RMcAQTFuz'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 login_manager = LoginManager()
 csrf = CSRFProtect()
 login_manager.login_view = 'google.login'
@@ -27,6 +27,6 @@ app.register_blueprint(google_blueprint, url_prefix="/login")
 app.register_blueprint(url)
 
 
-# db.init_app(app)
+db.init_app(app)
 login_manager.init_app(app)
 csrf.init_app(app)
