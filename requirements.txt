@@ -1,3 +1,4 @@
+blinker==1.4
 certifi==2018.4.16
 chardet==3.0.4
 click==6.7
@@ -5,6 +6,7 @@ Flask==1.0.2
 Flask-Dance==1.0.0
 Flask-Login==0.4.1
 Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
 idna==2.7
 itsdangerous==0.24
 Jinja2==2.10
@@ -20,3 +22,4 @@ SQLAlchemy-Utils==0.33.3
 urllib3==1.23
 URLObject==2.4.3
 Werkzeug==0.14.1
+WTForms==2.2.1

@@ -13,6 +13,7 @@ body {
 }
 
 .alert-area {
+  padding-left: 0;
 }
 
 .user-email {
@@ -24,5 +25,15 @@ body {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  margin-right: 10px 
+  margin-right: 10px;
+}
+
+.form-card {
+  background-color: white;
+  color: black;
+}
+
+.form-card-size {
+  max-width: 500px;
+  margin: auto;
 }

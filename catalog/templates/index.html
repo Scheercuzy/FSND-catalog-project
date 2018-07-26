@@ -2,9 +2,9 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="card text-white bg-dark">
-      <div class="card-header">
-        <strong>Categories</strong> -
-        <a class="card-link btn-link disabled" href="#">Add</a>
+      <div class="card-header d-flex">
+        <strong class="flex-grow-1">Categories</strong>
+        <a class="card-link btn-link {% if current_user.is_authenticated %}{% else %}disabled{% endif %}" href="{{ url_for('url.add_category') }}">Add</a>
       </div>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -19,9 +19,9 @@
   </div>
   <div class="col-sm-8">
     <div class="card text-white bg-dark">
-      <div class="card-header">
-        <strong>Items</strong> -
-        <a class="card-link btn-link disabled" href="#">Add</a>
+      <div class="card-header d-flex">
+        <strong class="flex-grow-1">Items</strong>
+        <a class="card-link btn-link {% if current_user.is_authenticated %}{% else %}disabled{% endif %}" href="#">Add</a>
       </div>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>

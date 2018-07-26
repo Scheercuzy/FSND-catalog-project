@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+{% from "_render_field.html" import render_field, render_radio_fields %}
+
+
+<div class="card text-white bg-dark form-card-size">
+  <div class="card-header">
+    <strong>Add Category</strong>
+  </div>
+  <div class="card-body form-card">
+    <form method="POST" action="{{ url_for('url.add_category') }}">
+      {{ form.hidden_tag() }}
+      {{ render_field(form.name, placeholder=form.name.label.text) }}
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+  </form>
+  </div>
+</div>
+{% endblock %}

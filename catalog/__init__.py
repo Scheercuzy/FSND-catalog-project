@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 
@@ -9,6 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+csrf = CSRFProtect()
 login_manager.login_view = 'google.login'
 
 from catalog.routes import url  # noqa
@@ -27,3 +29,4 @@ app.register_blueprint(url)
 
 db.init_app(app)
 login_manager.init_app(app)
+csrf.init_app(app)
