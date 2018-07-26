@@ -36,6 +36,7 @@ class Item(db.Model):
         'category.id'), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    category = db.relationship("Category", lazy='joined')
 
     __table_args__ = (db.UniqueConstraint(
         'category_id', 'name', name='_category_name_uc'),

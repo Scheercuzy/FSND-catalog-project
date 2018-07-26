@@ -10,7 +10,10 @@ url = Blueprint('url', __name__)
 
 @url.route('/')
 def index():
-    return render_template('index.html', title="index")
+    catergories = Category.query.all()
+    items = Item.query.all()
+    return render_template(
+        'index.html', title="index", categories=catergories, items=items)
 
 
 @url.route('/logout')
