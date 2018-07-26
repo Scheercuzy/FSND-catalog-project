@@ -35,7 +35,7 @@ def category_items(category_id):
     items = Item.query.filter(Item.category_id == category_id).all()
     catergories = Category.query.all()
     if not items:
-        flash("Couldn't find any items with this category")
+        flash("Couldn't find any items with this category", category='warning')
         return redirect(url_for('url.index'))
     return render_template(
         'index.html',
