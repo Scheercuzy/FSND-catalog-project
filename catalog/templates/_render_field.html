@@ -1,7 +1,6 @@
 {% macro render_field(field) %}
-<div class="form-group row">
-    <label for="{{ field.name }}" class="col-lg-2 control-label">{{ field.label.text.capitalize() }}</label>
-    <div class="col-lg-10">
+<div class="form-group">
+    <label for="{{ field.name }}" >{{ field.label.text.capitalize() }}</label>
         {% if field.errors %}
             {{ field(class='form-control is-invalid', **kwargs)|safe }}
         {% else %}
@@ -10,6 +9,27 @@
         {% for error in field.errors %}
         <div class="invalid-feedback">{{ error }}</div>
         {% endfor %}
-    </div>
+</div>
+{% endmacro %}
+
+
+{% macro render_select_field(field) %}
+<div class="form-group">
+    <label for="{{ field.name }}">{{ field.label.text.capitalize() }}</label>
+    {{ field(class='form-control', **kwargs)|safe }}
+    {% for error in field.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+{% macro render_text_field(field) %}
+<div class="form-group">
+    <label for="{{ field.name }}">{{ field.label.text.capitalize() }}</label>
+    {{ field(class='form-control', **kwargs)|safe }}
+    {% for error in field.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+    {% endfor %}
 </div>
 {% endmacro %}

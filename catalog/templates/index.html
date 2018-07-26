@@ -21,7 +21,7 @@
     <div class="card text-white bg-dark">
       <div class="card-header d-flex">
         <strong class="flex-grow-1">Items</strong>
-        <a class="card-link btn-link {% if current_user.is_authenticated %}{% else %}disabled{% endif %}" href="#">Add</a>
+        <a class="card-link btn-link {% if current_user.is_authenticated %}{% else %}disabled{% endif %}" href="{{ url_for('url.add_item') }}">Add</a>
       </div>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
