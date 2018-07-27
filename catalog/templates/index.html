@@ -4,11 +4,18 @@
     <div class="card text-white bg-dark">
       <div class="card-header d-flex">
         <strong class="flex-grow-1">Categories</strong>
-        <a class="card-link btn-link {% if current_user.is_authenticated %}{% else %}disabled{% endif %}" href="{{ url_for('url.add_category') }}">Add</a>
+        {% if not current_category_id %}
+        <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.add_category') }}">Add</a>
+        {% else %}
+        <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="#">Edit</a>
+        <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.delete_category', category_id=current_category_id) }}">Delete</a>
+        {% endif %}
       </div>
       <div class="list-group list-group-flush">
         {% for category in categories %}
-        <a href="{{ url_for('url.category_items', category_id=category.id) }}" class="list-group-item list-group-item-action {% if current_category_id == category.id %}active{% endif %}">{{ category.name }}</a>
+        <a href="{{ url_for('url.category_items', category_id=category.id) }}" class="d-flex list-group-item list-group-item-action {% if current_category_id == category.id %}active{% endif %}">
+          <span class="flex-grow-1">{{ category.name }}</span>
+        </a>
         {% endfor %}
       </div>
     </div>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, logout_user, current_user
 
 from catalog.forms import AddCategory, AddItem
@@ -71,6 +71,27 @@ def add_category():
             form.name.data.capitalize()), category='success')
         return redirect(url_for('url.index'))
     return render_template('add_category.html', form=form)
+
+
+@url.route('/delete/category/<int:category_id>', methods=['GET'])
+@login_required
+def delete_category(category_id):
+    category = Category.query.filter(Category.id == category_id).first()
+    if not category:
+        flash("Couldn't find a category with that id", category='warning')
+        return redirect(request.referrer)
+
+    items = Item.query.filter(Item.category_id == category_id).all()
+    if items:
+        flash(
+            "Couldn't remove category because of items {}. "
+            "Remove those items first before deleting this category".format(
+                ", ".join([item.name for item in items])),
+            category='warning')
+        return redirect(request.referrer)
+
+    category.delete()
+    return url_for('url.index')
 
 
 @url.route('/add/item', methods=['GET', 'POST'])
