@@ -11,7 +11,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy()
 login_manager = LoginManager()
 csrf = CSRFProtect()
-login_manager.login_view = 'google.login'
+login_manager.login_view = 'url.login'
+login_manager.login_message_category = "warning"
 
 from catalog.routes import url  # noqa
 from catalog.oauth import google_blueprint  # noqa

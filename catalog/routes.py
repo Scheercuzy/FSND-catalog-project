@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from flask_login import login_required, logout_user
+from flask_login import login_required, logout_user, current_user
 
 from catalog.forms import AddCategory, AddItem
 from catalog import db
@@ -42,6 +42,13 @@ def category_items(category_id):
         categories=catergories,
         items=items,
         current_category_id=category_id)
+
+
+@url.route('/login')
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('url.index'))
+    return render_template('login.html')
 
 
 @url.route('/logout')

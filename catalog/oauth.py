@@ -13,7 +13,8 @@ google_blueprint = make_google_blueprint(
     ".apps.googleusercontent.com",
     client_secret="VFUyyM2x_8zvf3UeK0HoUle8",
     scope=["https://www.googleapis.com/auth/userinfo.email",
-           "https://www.googleapis.com/auth/userinfo.profile"]
+           "https://www.googleapis.com/auth/userinfo.profile"],
+    redirect_to='url.login'
 )
 
 

@@ -9,8 +9,11 @@
   <title>Catalog</title>
   {% endif %}
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-social.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+  
 
 </head>
 
@@ -24,7 +27,7 @@
       <button type="button" class="btn btn-danger">Logout</button>
     </a>
     {% else %}
-    <a href="{{ url_for('google.login') }}">
+    <a href="{{ url_for('url.login') }}">
       <button type="button" class="btn btn-success align-self-end">Login</button>
     </a>
     {% endif %}
