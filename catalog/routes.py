@@ -70,7 +70,11 @@ def add_category():
         flash("New category '{}' was successfully created".format(
             form.name.data.capitalize()), category='success')
         return redirect(url_for('url.index'))
-    return render_template('add_category.html', form=form)
+    return render_template(
+        'forms/form.html',
+        form_title="Add Category",
+        form=form,
+        form_name='category')
 
 
 @url.route('/delete/category/<int:category_id>', methods=['GET'])
@@ -108,4 +112,8 @@ def add_item():
         flash("New item '{}' was successfully created".format(
             form.name.data.capitalize()), category='success')
         return redirect(url_for('url.index'))
-    return render_template('add_item.html', form=form)
+    return render_template(
+        'forms/form.html',
+        form_title='Add Item',
+        form=form,
+        form_name='item')

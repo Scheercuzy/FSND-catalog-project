@@ -3,7 +3,7 @@
   <div class="col-sm-4">
     <div class="card text-white bg-dark">
       <div class="card-header d-flex">
-        <strong class="flex-grow-1">Categories</strong>
+        <span class="flex-grow-1">Categories</span>
         {% if not current_category_id %}
         <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.add_category') }}">Add</a>
         {% else %}
@@ -23,7 +23,7 @@
   <div class="col-sm-8">
     <div class="card text-white bg-dark">
       <div class="card-header d-flex">
-        <strong class="flex-grow-1">Items</strong>
+        <span class="flex-grow-1">Items</span>
         <a class="card-link btn-link {% if current_user.is_authenticated %}{% else %}disabled{% endif %}" href="{{ url_for('url.add_item') }}">Add</a>
       </div>
       <div class="list-group list-group-flush">

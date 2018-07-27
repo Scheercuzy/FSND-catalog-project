@@ -1,0 +1,19 @@
+{% macro render_item_form(form) %}
+{% from "forms/_render_field.html" import render_field, render_select_field, render_text_field %}
+<form method="POST" action="{{ url_for('url.add_item') }}">
+    {{ form.hidden_tag() }}
+    {{ render_select_field(form.category_id) }}
+    {{ render_field(form.name, placeholder=form.name.label.text) }}
+    {{ render_text_field(form.description, rows=3) }}
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+</form>
+{% endmacro %}
+
+{% macro render_category_form(form) %}
+{% from "forms/_render_field.html" import render_field %}
+<form method="POST" action="{{ url_for('url.add_category') }}">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.name, placeholder=form.name.label.text) }}
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+</form>
+{% endmacro %}

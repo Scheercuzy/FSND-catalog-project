@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+{% from "forms/_render_form.html" import render_item_form, render_category_form %}
+<div class="card text-white bg-dark small-card-size">
+  <div class="card-header">
+    <span>{{ form_title }}</span>
+  </div>
+  <div class="card-body form-card">
+    {% if form_name == 'item' %}
+      {{ render_item_form(form) }}
+    {% elif form_name == 'category' %}
+      {{ render_category_form(form) }}
+    {% else %}
+      <span>Unknown Form</span>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
