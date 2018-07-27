@@ -7,7 +7,7 @@
         {% if not current_category_id %}
         <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.add_category') }}">Add</a>
         {% else %}
-        <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="#">Edit</a>
+        <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.edit_category', category_id=current_category_id) }}">Edit</a>
         <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.delete_category', category_id=current_category_id) }}">Delete</a>
         {% endif %}
       </div>

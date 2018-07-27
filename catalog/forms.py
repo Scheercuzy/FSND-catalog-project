@@ -7,7 +7,7 @@ from sqlalchemy import and_
 from catalog.models import Category, Item
 
 
-class AddCategory(FlaskForm):
+class CategoryForm(FlaskForm):
     name = StringField('name', validators=[
                        DataRequired(), Length(min=2, max=20)])
 
@@ -23,7 +23,7 @@ def item_category_choices():
     return Category.query.all()
 
 
-class AddItem(FlaskForm):
+class ItemForm(FlaskForm):
     category_id = QuerySelectField(
         'Category',
         query_factory=item_category_choices,

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, logout_user, current_user
 
-from catalog.forms import AddCategory, AddItem
+from catalog.forms import CategoryForm, ItemForm
 from catalog import db
 from catalog.models import Category, Item
 
@@ -36,7 +36,6 @@ def category_items(category_id):
     catergories = Category.query.all()
     if not items:
         flash("Couldn't find any items with this category", category='warning')
-        return redirect(url_for('url.index'))
     return render_template(
         'index.html',
         categories=catergories,
@@ -62,19 +61,21 @@ def logout():
 @url.route('/add/category', methods=['GET', 'POST'])
 @login_required
 def add_category():
-    form = AddCategory()
+    form = CategoryForm()
     if form.validate_on_submit():
         new_category = Category(name=form.name.data.capitalize())
         db.session.add(new_category)
         db.session.commit()
-        flash("New category '{}' was successfully created".format(
+        flash("Successfully created new category '{}'".format(
             form.name.data.capitalize()), category='success')
         return redirect(url_for('url.index'))
     return render_template(
         'forms/form.html',
         form_title="Add Category",
         form=form,
-        form_name='category')
+        form_name='category',
+        action=url_for('url.add_category')
+    )
 
 
 @url.route('/delete/category/<int:category_id>', methods=['GET'])
@@ -94,14 +95,46 @@ def delete_category(category_id):
             category='warning')
         return redirect(request.referrer)
 
-    category.delete()
-    return url_for('url.index')
+    category_name = category.name
+    db.session.delete(category)
+    db.session.commit()
+    flash(
+        "Successfuly deleted category '{}'".format(category_name),
+        "success")
+
+    return redirect(url_for('url.index'))
+
+
+@url.route('/edit/category/<int:category_id>', methods=['GET', 'POST'])
+@login_required
+def edit_category(category_id):
+    category = Category.query.filter(Category.id == category_id).first()
+    if not category:
+        flash("Couldn't find a category with that id", category='warning')
+        return redirect(request.referrer)
+
+    form = CategoryForm()
+    if form.validate_on_submit():
+        category.name = form.name.data
+        db.session.commit()
+        flash('Successfully updated category', 'success')
+        return redirect(url_for('url.index'))
+
+    elif request.method == 'GET':
+        form.name.data = category.name
+
+    return render_template(
+        'forms/form.html',
+        form_title='Edit Category',
+        form=form,
+        form_name='category',
+        action=url_for('url.edit_category', category_id=category_id))
 
 
 @url.route('/add/item', methods=['GET', 'POST'])
 @login_required
 def add_item():
-    form = AddItem()
+    form = ItemForm()
     if form.validate_on_submit():
         new_item = Item(
             category_id=form.category_id.data.id,
@@ -116,4 +149,5 @@ def add_item():
         'forms/form.html',
         form_title='Add Item',
         form=form,
-        form_name='item')
+        form_name='item',
+        action=url_for('url.add_item'))

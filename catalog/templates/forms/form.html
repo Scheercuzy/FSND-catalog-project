@@ -6,9 +6,9 @@
   </div>
   <div class="card-body form-card">
     {% if form_name == 'item' %}
-      {{ render_item_form(form) }}
+      {{ render_item_form(form, action) }}
     {% elif form_name == 'category' %}
-      {{ render_category_form(form) }}
+      {{ render_category_form(form, action) }}
     {% else %}
       <span>Unknown Form</span>
     {% endif %}

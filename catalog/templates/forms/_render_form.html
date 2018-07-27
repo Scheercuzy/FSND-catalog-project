@@ -1,19 +1,28 @@
-{% macro render_item_form(form) %}
+{% macro form_wrapper(action) %}
+{% if action %}
+<form method="POST" action="{{ action }}">
+{% else %}
+<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+</form>
+{% endif %}
+{% endmacro %}
+
+
+{% macro render_item_form(form, action) %}
 {% from "forms/_render_field.html" import render_field, render_select_field, render_text_field %}
-<form method="POST" action="{{ url_for('url.add_item') }}">
+{{ form_wrapper(action) }}
     {{ form.hidden_tag() }}
     {{ render_select_field(form.category_id) }}
     {{ render_field(form.name, placeholder=form.name.label.text) }}
     {{ render_text_field(form.description, rows=3) }}
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-</form>
+{{ form_wrapper() }}
 {% endmacro %}
 
-{% macro render_category_form(form) %}
+
+{% macro render_category_form(form, action) %}
 {% from "forms/_render_field.html" import render_field %}
-<form method="POST" action="{{ url_for('url.add_category') }}">
+{{ form_wrapper(action) }}
     {{ form.hidden_tag() }}
     {{ render_field(form.name, placeholder=form.name.label.text) }}
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-</form>
+{{ form_wrapper() }}
 {% endmacro %}
