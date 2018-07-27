@@ -15,6 +15,7 @@ login_manager.login_view = 'url.login'
 login_manager.login_message_category = "warning"
 
 from catalog.routes import url  # noqa
+from catalog.routes_json import json_url  # noqa
 from catalog.oauth import google_blueprint  # noqa
 from catalog.models import OAuth, User  # noqa
 
@@ -26,6 +27,7 @@ def load_user(user_id):
 
 app.register_blueprint(google_blueprint, url_prefix="/login")
 app.register_blueprint(url)
+app.register_blueprint(json_url)
 
 
 db.init_app(app)

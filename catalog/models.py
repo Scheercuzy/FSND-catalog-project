@@ -24,6 +24,14 @@ class OAuth(OAuthConsumerMixin, db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True, nullable=False)
+    items = db.relationship("Item", back_populates="category")
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
 
     def __repr__(self):
         return "{}:{}".format(self.id, self.name)
@@ -36,11 +44,22 @@ class Item(db.Model):
         'category.id'), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    category = db.relationship("Category", lazy='joined')
+    category = db.relationship(
+        "Category", back_populates="items")
 
     __table_args__ = (db.UniqueConstraint(
         'category_id', 'name', name='_category_name_uc'),
     )
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'catergory_id': self.category_id,
+            'created_date': self.created_date,
+            'name': self.name,
+            'description': self.description
+        }
 
     def __repr__(self):
         return "{}:{}:{}".format(self.id, self.category_id, self.name)
