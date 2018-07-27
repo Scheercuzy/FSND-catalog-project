@@ -151,3 +151,50 @@ def add_item():
         form=form,
         form_name='item',
         action=url_for('url.add_item'))
+
+
+@url.route('/delete/item/<int:item_id>', methods=['GET'])
+@login_required
+def delete_item(item_id):
+    item = Item.query.filter(Item.id == item_id).first()
+    if not item:
+        flash("Couldn't find an item with that id", category='warning')
+        return redirect(request.referrer)
+
+    item_name = item.name
+    db.session.delete(item)
+    db.session.commit()
+    flash(
+        "Successfuly deleted item '{}'".format(item_name),
+        "success")
+
+    return redirect(url_for('url.index'))
+
+
+@url.route('/edit/item/<int:item_id>', methods=['GET', 'POST'])
+@login_required
+def edit_item(item_id):
+    item = Item.query.filter(Item.id == item_id).first()
+    if not item:
+        flash("Couldn't find a item with that id", category='warning')
+        return redirect(request.referrer)
+
+    form = ItemForm()
+    if form.validate_on_submit():
+        item.category_id = form.category_id.data.id
+        item.name = form.name.data
+        item.description = form.description.data
+        db.session.commit()
+        flash('Successfully updated Item', 'success')
+        return redirect(url_for('url.index'))
+
+    elif request.method == 'GET':
+        form.name.data = item.name
+        form.description.data = item.description
+
+    return render_template(
+        'forms/form.html',
+        form_title='Edit Item',
+        form=form,
+        form_name='item',
+        action=url_for('url.edit_item', item_id=item_id))

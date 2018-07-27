@@ -1,8 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
 <div class="card text-white bg-dark small-card-size">
-    <div class="card-header">
-      <strong>{{ item.name }}</strong>
+    <div class="card-header d-flex">
+      <span class="flex-grow-1">{{ item.name }}</span>
+      <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.edit_item', item_id=item.id) }}">Edit</a>
+        <a class="card-link btn-link {% if not current_user.is_authenticated %}disabled{% endif %}" href="{{ url_for('url.delete_item', item_id=item.id) }}">Delete</a>
     </div>
     <div class="card-body form-card">
       {{ item.description }}
