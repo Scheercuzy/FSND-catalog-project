@@ -1,3 +1,4 @@
+import os
 from flask import flash
 from flask_dance.contrib.google import make_google_blueprint
 from flask_dance.consumer import oauth_authorized, oauth_error
@@ -9,9 +10,8 @@ from catalog.models import User, OAuth
 from catalog import db
 
 google_blueprint = make_google_blueprint(
-    client_id="439962279189-oqka6r921tq6p7mq2l3ujj65hbnvqmqg"
-    ".apps.googleusercontent.com",
-    client_secret="VFUyyM2x_8zvf3UeK0HoUle8",
+    client_id=os.environ['GOOGLE_CLIENT_ID'],
+    client_secret=os.environ['GOOGLE_CLIENT_SECRET'],
     scope=["https://www.googleapis.com/auth/userinfo.email",
            "https://www.googleapis.com/auth/userinfo.profile"],
     redirect_to='url.login'

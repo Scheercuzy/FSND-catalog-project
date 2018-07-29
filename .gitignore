@@ -4,3 +4,4 @@ venv_osx
 .DS_Store
 __pycache__
 database.db
+secrets.txt
