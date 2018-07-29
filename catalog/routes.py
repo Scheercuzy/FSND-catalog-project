@@ -180,6 +180,7 @@ def edit_item(item_id):
         return redirect(request.referrer)
 
     form = ItemForm()
+    form.editting_new_item = True
     if form.validate_on_submit():
         item.category_id = form.category_id.data.id
         item.name = form.name.data

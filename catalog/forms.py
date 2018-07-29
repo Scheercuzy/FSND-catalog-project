@@ -37,6 +37,8 @@ class ItemForm(FlaskForm):
         if not FlaskForm.validate(self):
             return False
         result = True
+        if hasattr(self, 'editting_new_item'):
+            return result
         item = Item.query.filter(and_(
             Item.name == str(self.name.data.capitalize()),
             Item.category_id == self.category_id.data.id)).first()
