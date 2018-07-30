@@ -6,7 +6,15 @@ An application that provides a list of items within a variety of categories as w
 
 ## Usage
 
-Usage Text
+The application starts out with a blank database, so once you've got the app up and running you will be directed to the index page were you will see a navbar with the title and the ability to login and 2 tabs. The 2 tabs will have the heading of categories and items. To start adding categories and items, you will first need to login, the only option for this app is to login with google. once logged in, you will have the option to add categories and items as you please. Once created, you will have the option to edit each entry or delete them also. You will not be able to delete a category if items are linked to it.
+
+The application also has a couple json endpoints. They are:
+
+- `/json/all`: Shows all the categories and the items associated with them
+- `/json/categories`: Shows all the categories
+- `/json/items`: Shows all the items
+- `/json/category/<category_id>`: Shows the category with the category_id of `<category_id>`
+- `/json/item/<item_id>`: Shows the item with the item_id of `<item_id>`
 
 ## Installation
 
@@ -34,19 +42,23 @@ pip install -r requirements.txt
 
 ### Environment Variables
 
-A few environment variables needs to be set to be able to run this App. The first 2 are to disable the https check as the app will be run on a development server instead of a production server with a load balancer installed. These environment variables will need to be set every time you open a new terminal window as the variables are forgotten when the window is closed. To disable the https check, run:
+A few environment variables needs to be set to be able to run this App. The first 2 are to disable the https check as the app will be run on a development server instead of a production server with a load balancer installed. These variables will already be set for you in the .env file in the parent directory
+
+You will also need to setup the client id and client secret for the oauth system in the app. The environment variables to set are `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. Once obtained from Google, add them to the `.env` file in the parent directory
 
 ```bash
-export OAUTHLIB_INSECURE_TRANSPORT=1
-export OAUTHLIB_RELAX_TOKEN_SCOPE=1
+GOOGLE_CLIENT_ID=<client_id_here>
+GOOGLE_CLIENT_SECRET=<client_secret_here>
 ```
 
-You will also need to setup the client id and client secret for the oauth system in the app. The enviroment variables to set are
+Alternatively you can set them on the current terminal window by exporting them instead like this:
 
 ```bash
-export GOOGLE_CLIENT_ID=<google_client_id_here>
-export GOOGLE_CLIENT_SECRET=<google_client_secret_here>
+export GOOGLE_CLIENT_ID=<client_id_here>
+export GOOGLE_CLIENT_SECRET=<client_secret_here>
 ```
+
+The application will not run without these variables
 
 ### Running the App
 
