@@ -5,3 +5,4 @@ venv_osx
 __pycache__
 database.db
 secrets.txt
+*.pyc
