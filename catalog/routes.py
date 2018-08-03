@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, \
+    request, Markup
 from flask_login import login_required, logout_user, current_user
 
 from catalog.forms import CategoryForm, ItemForm
@@ -72,10 +73,21 @@ def category_items(category_id):
 @url.route('/login')
 def login():
     """A simple login page with all the available OAuth providers """
+    authorized_redirect_URIs = ['localhost:5000', '127.0.0.1:5000']
+
+    disabled = False
+    if request.host not in authorized_redirect_URIs:
+        flash(Markup("""Please use
+              <a href='http://localhost:5000/login'>http://localhost:5000</a>
+              or
+              <a href='http://127.0.0.1:5000/login'>http://127.0.0.1:5000</a>
+              to access the application otherwise the OAuth will not work"""),
+              category='danger')
+        disabled = True
 
     if current_user.is_authenticated:
         return redirect(url_for('url.index'))
-    return render_template('login.html')
+    return render_template('login.html', disabled=disabled)
 
 
 @url.route('/logout')

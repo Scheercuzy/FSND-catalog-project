@@ -34,7 +34,7 @@ virtualenv -p python3 venv
 source venv/bin/activate
 ```
 
-Now installed the requirements for the project app with:
+Now install the requirements for the project app with:
 
 ```bash
 pip install -r requirements.txt
@@ -58,6 +58,8 @@ export GOOGLE_CLIENT_ID=<client_id_here>
 export GOOGLE_CLIENT_SECRET=<client_secret_here>
 ```
 
+But doing it this way you will have to run it every time you open a new terminal window for the application, therefore I recommend setting it on the `.env` file instead
+
 The application will not run without these variables
 
 ### Running the App
@@ -73,3 +75,5 @@ All the subsequent times, run it normal with `run.py`
 ```bash
 python run.py
 ```
+
+then access the app at either `localhost:5000` or `127.0.0.1:5000`. if you use any other urls the application will not let you login.
